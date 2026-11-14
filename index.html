@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&family=Rampart+One&family=Rubik+Puddles&display=swap" rel="stylesheet">
+  <title>Это мой ребёнок</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <main id="app">
+    <section id="startScreen" class="screen">
+      <div class="start-screen__content">
+        <h1 class="game-title">Это мой ребёнок</h1>
+
+        <div class="start-screen__main">
+          <div class="rules-block">
+            <h2>Правила игры:</h2>
+
+            <div class="rules-box">
+              <p>
+                Здесь позже будет текст правил игры.
+              </p>
+            </div>
+          </div>
+
+          <div class="start-screen__actions">
+            <button id="startButton" class="main-button">Начать</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pickStatsScreen" class="screen hidden">
+      <div class="pick-stats-screen__content">
+        <h1 class="game-title">Это мой ребёнок</h1>
+        <div class="pick-stats-screen__main">
+          <div class="stats-block">
+            <h2>Давайте познакомимся с пока еще Вашим ребенком</h2>
+            <div class="stats-box">
+              <p>Интеллект: <span id="statIntelligence"></span></p>
+              <p>Физическое здоровье: <span id="statPhysical"></span></p>
+              <p>Ментальное состояние: <span id="statMental"></span></p>
+              <p>Отношения с родителем: <span id="statRelationship"></span></p>
+            </div>
+          </div>
+
+          <div class="pick-stats-screen__actions">
+            <button id="continueButton" class="main-button continue">Продолжить</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen hidden">
+      <div class="game-layout">
+        <section class="slider-column">
+          <div class="slider-viewport">
+            <div
+              id="sliderTrack"
+              class="slider-track">
+            </div>
+          </div>
+        </section>
+        <section class="content-panel">
+          <div class="content-viewport">
+            <div id="contentArea" class="content-area"></div>
+            
+          </div>
+          <button id="nextButton" class="main-button next-button">Далее</button>
+        </section>
+
+      </div>
+    </section>
+
+    <section id="resultScreen" class="screen hidden">
+      <div class="result-screen__content">
+        <h2>Игра окончена</h2>
+        <div id="resultContent">
+          <div class="stats-box">
+              <p>Интеллект: <span id="statIntelligenceFinal"></span></p>
+              <p>Физическое здоровье: <span id="statPhysicalFinal"></span></p>
+              <p>Ментальное состояние: <span id="statMentalFinal"></span></p>
+              <p>Отношения с родителем: <span id="statRelationshipFinal"></span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- <script type="module" src="./js/data.js"></script> -->
+  <script type="module" src="./js/game.js"></script>
+</body>
+</html>
