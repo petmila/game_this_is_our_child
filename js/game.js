@@ -64,15 +64,56 @@ const contentArea =
    GAME DATA
 ========================= */
 
+// const blocks = [
+//   "influence",
+//   "situation",
+//   "choice",
+//   "change_stat",
+//   "influence",
+//   "choice",
+//   "situation",
+//   "change_stat"
+// ];
+
 const blocks = [
+  "influence",
+  "choice",
+  "situation",
+  "influence",
+  "change_stat",
+  "choice",
+  "situation",
+  "change_stat",
   "influence",
   "situation",
   "choice",
   "change_stat",
   "influence",
+  "situation",
+  "change_stat",
+  "situation",
+  "choice",
+  "influence",
+  "situation",
+  "influence",
+  "change_stat",
   "choice",
   "situation",
-  "change_stat"
+  "choice",
+  "change_stat",
+  "influence",
+  "situation",
+  "choice",
+  "influence",
+  "change_stat",
+  "situation",
+  "choice",
+  "influence",
+  "choice",
+  "change_stat",
+  "situation",
+  "influence",
+  "choice"
 ];
 
 const blockTypes = {
@@ -533,10 +574,10 @@ function renderChangeStat() {
   nextButton.disabled = true;
   contentArea.innerHTML = `
     <div class="change-stat-content">
+    <div class="change-stat-sheet">
       <p class="change-stat-text">
         Выберите характеристику, на которую хотите положительно повлиять.
       </p>
-
       <div class="change-stat-options">
         <button class="stat-choice-button" data-stat="И">Интеллект</button>
         <button class="stat-choice-button" data-stat="ФЗ">Физическое здоровье</button>
@@ -544,6 +585,7 @@ function renderChangeStat() {
         <button class="stat-choice-button" data-stat="ОР">Отношения с родителями</button>
       </div>
       <p id="changeStatResult" class="change-stat-result"></p>
+      </div>
     </div>
   `;
   setupChangeStatButtons();
