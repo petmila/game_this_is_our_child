@@ -10,7 +10,7 @@
   <title>Это мой ребёнок</title>
   <link rel="stylesheet" href="./css/styles_mobile.css">
 </head>
-<body>
+<body background="./images/bg.PNG">
   <main id="app">
     <section id="startScreen" class="screen">
       <div class="start-screen__content">
@@ -18,8 +18,8 @@
         <!-- <h1 class="game-title">Это мой ребёнок</h1> -->
         <div class="start-screen__main">
           <div class="rules-block">
-            <h2>Правила игры:</h2>
-
+            <!-- <h2>Правила игры:</h2> -->
+            <img src="./images/rules_button.PNG" alt="Правила игры:">
             <div class="rules-box">
               <p>
                 Здесь позже будет текст правил игры.
@@ -28,7 +28,9 @@
           </div>
 
           <div class="start-screen__actions">
-            <button id="startButton" class="main-button">Начать</button>
+            <button id="startButton" class="main-button">
+              <img src="./images/start_button.PNG" alt="Начать">
+            </button>
           </div>
         </div>
       </div>
@@ -45,6 +47,7 @@
               <p>Физическое здоровье: <span id="statPhysical"></span></p>
               <p>Ментальное состояние: <span id="statMental"></span></p>
               <p>Отношения с родителем: <span id="statRelationship"></span></p>
+              <p>Воспитанность: <span id="statBehavior"></span></p>
             </div>
           </div>
 
@@ -67,8 +70,10 @@
         </section>
         <section class="content-panel">
           <div class="content-viewport">
-            <div id="contentArea" class="content-area"></div>
-            
+            <div id="contentArea" class="content-area"></div>  
+          </div>
+          <div class="game-progress">
+            <div id="progressFill" class="game-progress__fill"></div>
           </div>
           <button id="nextButton" class="main-button next-button">Далее</button>
         </section>
@@ -85,8 +90,10 @@
               <p>Физическое здоровье: <span id="statPhysicalFinal"></span></p>
               <p>Ментальное состояние: <span id="statMentalFinal"></span></p>
               <p>Отношения с родителем: <span id="statRelationshipFinal"></span></p>
+              <p>Воспитанность: <span id="statBehaviorFinal"></span></p>
+              <p>Спасибо за эту игру! Даже если не все получилось, вы переживали за своего ребенка, а это главное качество хорошего родителя.</p>
           </div>
-        </div>
+          </div>
       </div>
     </section>
   </main>

@@ -64,57 +64,51 @@ const contentArea =
    GAME DATA
 ========================= */
 
+const blocks = [
+  "influence",
+  "situation"
+];
+
 // const blocks = [
+//   "influence",
+//   "choice",
+//   "situation",
+//   "influence",
+//   "change_stat",
+//   "choice",
+//   "situation",
+//   "change_stat",
 //   "influence",
 //   "situation",
 //   "choice",
 //   "change_stat",
 //   "influence",
+//   "situation",
+//   "change_stat",
+//   "situation",
+//   "choice",
+//   "influence",
+//   "situation",
+//   "influence",
+//   "change_stat",
 //   "choice",
 //   "situation",
-//   "change_stat"
+//   "choice",
+//   "change_stat",
+//   "influence",
+//   "situation",
+//   "choice",
+//   "influence",
+//   "change_stat",
+//   "situation",
+//   "choice",
+//   "influence",
+//   "choice",
+//   "change_stat",
+//   "situation",
+//   "influence",
+//   "choice"
 // ];
-
-const blocks = [
-  "influence",
-  "choice",
-  "situation",
-  "influence",
-  "change_stat",
-  "choice",
-  "situation",
-  "change_stat",
-  "influence",
-  "situation",
-  "choice",
-  "change_stat",
-  "influence",
-  "situation",
-  "change_stat",
-  "situation",
-  "choice",
-  "influence",
-  "situation",
-  "influence",
-  "change_stat",
-  "choice",
-  "situation",
-  "choice",
-  "change_stat",
-  "influence",
-  "situation",
-  "choice",
-  "influence",
-  "change_stat",
-  "situation",
-  "choice",
-  "influence",
-  "choice",
-  "change_stat",
-  "situation",
-  "influence",
-  "choice"
-];
 
 const blockTypes = {
   "influence": "Влияние среды",
@@ -122,11 +116,20 @@ const blockTypes = {
   "choice": "Непредсказуемые последствия",
   "change_stat": "Займитесь своим ребенком"
 }
+const statNamesDict = {
+  "И": "Интеллект",
+  "ФЗ": "Физическое здоровье",
+  "МС": "Ментальное состояние",
+  "ОР": "Отношения с родителем",
+  "В": "Воспитанность"
+}
+
 let stats = {
   "И": 0,
   "ФЗ": 0,
   "МС": 0,
-  "ОР": 0
+  "ОР": 0,
+  "В": 0
 }
 
 let currentIndex = 0;
@@ -169,7 +172,7 @@ function randomizeStats() {
   const totalPoints = 20;
 
   const statNames = [
-    "И", "ФЗ", "МС", "ОР"
+    "И", "ФЗ", "МС", "ОР", "В"
   ];
   statNames.forEach(stat => {
     stats[stat] = minStat;
@@ -193,6 +196,7 @@ function showStats() {
   document.getElementById("statPhysical").textContent = stats["ФЗ"];
   document.getElementById("statMental").textContent = stats["МС"];
   document.getElementById("statRelationship").textContent = stats["ОР"];
+  document.getElementById("statBehavior").textContent = stats["В"];
 }
 
 function pickStats() {
@@ -236,6 +240,7 @@ function createSlider() {
 function updateGame() {
   updateBlockClasses();
   moveSliderToCurrent();
+  updateProgressBar();
   updateContentPanel();
 }
 
@@ -243,6 +248,19 @@ function updateGame() {
 /* =========================
    UPDATE BLOCK STATES
 ========================= */
+function updateProgressBar() {
+  const progressFill =
+    document.getElementById("progressFill");
+  if (!progressFill) {
+    return;
+  }
+  const progress =
+    blocks.length <= 1
+      ? 100
+      : (currentIndex / (blocks.length - 1)) * 100;
+
+  progressFill.style.width = `${progress}%`;
+}
 
 function updateBlockClasses() {
 
@@ -523,6 +541,10 @@ function applyEffects(effects) {
       case "ОСР":
         stats["ОР"] += effect.value;
         break;
+
+      case "В":
+        stats["В"] += effect.value;
+        break;
     }
 
   });
@@ -532,7 +554,7 @@ function renderEffects(effects) {
   return effects
     .map(effect => `
       <li>
-        ${effect.stat}:
+        ${statNamesDict[effect.stat]}:
         ${effect.value > 0 ? "+" : ""}
         ${effect.value}
       </li>
@@ -583,6 +605,7 @@ function renderChangeStat() {
         <button class="stat-choice-button" data-stat="ФЗ">Физическое здоровье</button>
         <button class="stat-choice-button" data-stat="МС">Ментальное состояние</button>
         <button class="stat-choice-button" data-stat="ОР">Отношения с родителями</button>
+        <button class="stat-choice-button" data-stat="В">Воспитанность</button>
       </div>
       <p id="changeStatResult" class="change-stat-result"></p>
       </div>
@@ -594,13 +617,15 @@ function renderChangeStat() {
 
 const statMessages = {
   "И":
-    "Вы решили уделить больше внимания развитию и обучению ребёнка. +2 И",
+    "Вы решили уделить больше внимания развитию и обучению ребёнка. +2 к Интеллекту",
   "ФЗ":
-    "Вы наконец отвели ребенка на плановый осмотр в поликлинику. +2 ФЗ",
+    "Вы наконец отвели ребенка на плановый осмотр в поликлинику. +2 к Физическому здоровью",
   "МС":
-    "Вы отвели ребенка к психологу. Давно пора! +2 МС",
+    "Вы отвели ребенка к психологу. Давно пора! +2 к Ментальному состоянию",
   "ОР":
-    "Ваш ребенок явно нуждался в качественном совместном досуге. +2 к Отношениям с Вами"
+    "Ваш ребенок явно нуждался в качественном совместном досуге. +2 к Отношениям с Вами",
+  "В":
+    "Вы уделили внимание воспитанию своего ребенка. +2 к Воспитанности"
 };
 
 function setupChangeStatButtons() {
@@ -709,6 +734,7 @@ function showResult() {
   document.getElementById("statPhysicalFinal").textContent = stats["ФЗ"];
   document.getElementById("statMentalFinal").textContent = stats["МС"];
   document.getElementById("statRelationshipFinal").textContent = stats["ОР"];
+  document.getElementById("statBehaviorFinal").textContent = stats["В"];
   showScreen("resultScreen");
 
 }
