@@ -64,51 +64,51 @@ const contentArea =
    GAME DATA
 ========================= */
 
-const blocks = [
-  "influence",
-  "situation"
-];
-
 // const blocks = [
 //   "influence",
-//   "choice",
-//   "situation",
-//   "influence",
-//   "change_stat",
-//   "choice",
-//   "situation",
-//   "change_stat",
-//   "influence",
-//   "situation",
-//   "choice",
-//   "change_stat",
-//   "influence",
-//   "situation",
-//   "change_stat",
-//   "situation",
-//   "choice",
-//   "influence",
-//   "situation",
-//   "influence",
-//   "change_stat",
-//   "choice",
-//   "situation",
-//   "choice",
-//   "change_stat",
-//   "influence",
-//   "situation",
-//   "choice",
-//   "influence",
-//   "change_stat",
-//   "situation",
-//   "choice",
-//   "influence",
-//   "choice",
-//   "change_stat",
-//   "situation",
-//   "influence",
-//   "choice"
+//   "situation"
 // ];
+
+const blocks = [
+  "influence",
+  "choice",
+  "situation",
+  "influence",
+  "change_stat",
+  "choice",
+  "situation",
+  "change_stat",
+  "influence",
+  "situation",
+  "choice",
+  "change_stat",
+  "influence",
+  "situation",
+  "change_stat",
+  "situation",
+  "choice",
+  "influence",
+  "situation",
+  "influence",
+  "change_stat",
+  "choice",
+  "situation",
+  "choice",
+  "change_stat",
+  "influence",
+  "situation",
+  "choice",
+  "influence",
+  "change_stat",
+  "situation",
+  "choice",
+  "influence",
+  "choice",
+  "change_stat",
+  "situation",
+  "influence",
+  "choice"
+];
 
 const blockTypes = {
   "influence": "Влияние среды",
