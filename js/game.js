@@ -13,21 +13,11 @@ async function initializeGame() {
 
 initializeGame();
 
-const startButton =
-  document.getElementById("startButton");
-  
-const continueButton =
-  document.getElementById("continueButton");
-
-const nextButton =
-  document.getElementById("nextButton");
-
-const sliderTrack =
-  document.getElementById("sliderTrack");
-
-const contentArea =
-  document.getElementById("contentArea");
-
+const startButton = document.getElementById("startButton");
+const continueButton = document.getElementById("continueButton");
+const nextButton = document.getElementById("nextButton");
+const sliderTrack = document.getElementById("sliderTrack");
+const contentArea = document.getElementById("contentArea");
 
 /* =========================
    GAME DATA
@@ -142,15 +132,12 @@ function playSound(sound) {
 ========================= */
 
 function showScreen(screenId) {
-  const screens =
-    document.querySelectorAll(".screen");
+  const screens = document.querySelectorAll(".screen");
   screens.forEach(screen => {
     screen.classList.add("hidden");
-
   });
 
-  const activeScreen =
-    document.getElementById(screenId);
+  const activeScreen = document.getElementById(screenId);
   activeScreen.classList.remove("hidden");
 }
 
@@ -183,8 +170,7 @@ function randomizeStats() {
 
   let pointsLeft = totalPoints - minStat * statNames.length;
   while (pointsLeft > 0) {
-    const randomStat =
-      statNames[Math.floor(Math.random() * statNames.length)];
+    const randomStat = statNames[Math.floor(Math.random() * statNames.length)];
 
     if (stats[randomStat] < maxStat) {
       stats[randomStat]++;
@@ -202,11 +188,21 @@ function showStats() {
   document.getElementById("statBehavior").textContent = stats["В"];
 }
 
+function generateFileNumber() {
+  return String(Math.floor(Math.random() * 1000))
+    .padStart(3, "0");
+}
+
 function pickStats() {
   startMusic();
 
   stats = randomizeStats();
   initialStats = { ...stats };
+  const fileNumber = generateFileNumber();
+  document.querySelectorAll(".file-number")
+    .forEach(element => {
+      element.textContent = fileNumber;
+    });
   showStats();
   showScreen("pickStatsScreen");
 }
