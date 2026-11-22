@@ -133,7 +133,7 @@ body {
 
 .start-screen__main,
 .pick-stats-screen__main {
-  width: 100%;
+  /* width: 100%; */
   max-width: 100%;
   display: grid;
   grid-template-columns:
@@ -145,6 +145,7 @@ body {
 .rules-block,
 .stats-block {
   min-width: 0;
+  align-items: center;
 }
 
 /* .start-screen__main,
@@ -210,8 +211,7 @@ body {
   color: rgb(115, 5, 5);
 }
 
-.rules-box,
-.stats-box {
+.rules-box {
   /* min-height: 240px; */
   /* padding: 22px; */
   border: 3px solid #0bc5f4;
@@ -225,6 +225,21 @@ body {
   font-size: clamp(10px, 1.3vw, 18px);
   line-height: 1.35;
   overflow-wrap: break-word;
+}
+
+.stats-box {
+  /* min-height: 240px; */
+  /* padding: 22px; */
+  border: 3px solid #0bc5f4;
+  border-radius: var(--border-radius);
+  background: white;
+  color: #66067b;
+
+  width: 350px;
+  padding: clamp(12px, 2vw, 22px);
+  font-size: clamp(10px, 1.3vw, 18px);
+  line-height: 1.35;
+  /* overflow-wrap: break-word; */
 }
 
 .rules-box p {
@@ -1140,5 +1155,291 @@ body {
   .change-stat-text {
     margin-bottom: 14px;
     font-size: 15px;
+  }
+}
+
+/* =========================
+   PERSONAL FILE / RESULTS
+========================= */
+
+#pickStatsScreen .stats-box,
+#resultContent > .stats-box {
+  padding: 20px 24px;
+  text-align: left;
+}
+
+#pickStatsScreen .stats-box {
+  font-size: 16px;
+}
+
+#resultContent > .stats-box {
+  min-width: 0;
+  font-size: 15px;
+}
+
+
+.personal-file__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 2px dashed #0bc5f4;
+}
+
+.personal-file__label {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 2px solid currentColor;
+  border-radius: 5px;
+
+  font-weight: 800;
+  transform: rotate(-2deg);
+}
+
+.personal-file__stage {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+
+.personal-file__intro,
+.personal-file__note {
+  text-align: left;
+  line-height: 1.4;
+}
+
+.personal-file__intro {
+  margin: 0 0 14px;
+  font-size: 14px;
+}
+
+.personal-file__note {
+  margin: 14px 0 0;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.personal-file__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+
+  margin: 0;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(102, 6, 123, 0.25);
+}
+
+.personal-file__row span:last-child {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+
+/* =========================
+   FINAL STATS TABLE
+========================= */
+
+.final-stats {
+  --final-columns: minmax(0, 1fr) 46px 46px;
+}
+
+.final-stats__columns,
+.final-stats .personal-file__row {
+  grid-template-columns: var(--final-columns);
+  gap: 8px;
+}
+
+.final-stats__columns {
+  display: grid;
+  align-items: center;
+
+  margin-bottom: 4px;
+  padding: 8px 0;
+
+  font-size: 13px;
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+.final-stats__columns span:not(:first-child),
+.final-stats .personal-file__row span:not(:first-child) {
+  text-align: right;
+}
+
+.final-stats .personal-file__row span:nth-child(2) {
+  font-weight: normal;
+  opacity: 0.6;
+}
+.final-stats .personal-file__row .negative-stat {
+  color: #c62828;
+}
+
+
+/* =========================
+   RESULT LAYOUT
+========================= */
+
+
+#resultContent {
+  width: min(940px, 100%);
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 20px;
+}
+
+
+.ending-box h3 {
+  margin: 0 0 16px;
+  font-size: 21px;
+  text-align: center;
+}
+
+.ending-box p {
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.ending-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* Длинные тексты не обрезаются */
+
+#pickStatsScreen,
+#resultScreen {
+  overflow-y: auto;
+}
+
+#pickStatsScreen .pick-stats-screen__content,
+#resultScreen .result-screen__content {
+  height: auto;
+  min-height: 100%;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+  /* Итоговые блоки друг под другом */
+
+  #resultContent {
+    width: 100%;
+    max-width: 580px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  /* Общие компактные отступы */
+
+  #pickStatsScreen .stats-box,
+  #resultContent > .stats-box {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+
+  .personal-file__header {
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+  }
+
+  .personal-file__label {
+    font-size: 14px;
+  }
+
+  .personal-file__stage,
+  .personal-file__note {
+    font-size: 11px;
+  }
+
+  .personal-file__intro {
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+
+  .personal-file__note {
+    margin-top: 10px;
+  }
+
+  .personal-file__row {
+    padding: 6px 0;
+    gap: 8px;
+  }
+
+  /* Таблица итогов */
+
+  .final-stats {
+    --final-columns: minmax(0, 1fr) 42px 42px;
+  }
+
+  .final-stats__columns {
+    font-size: 11px;
+  }
+
+  /* Текст концовки */
+
+  .ending-box h3 {
+    margin-bottom: 10px;
+    font-size: 17px;
+  }
+
+  .ending-box p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  /* Заголовок результата */
+
+  #resultScreen .result-screen__content {
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  #resultScreen .result-screen__content > img {
+    width: min(280px, 85vw);
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 0;
+  }
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 430px) {
+
+  #resultContent > .stats-box,
+  #pickStatsScreen .stats-box {
+    padding: 12px;
+  }
+
+  .final-stats {
+    --final-columns: minmax(0, 1fr) 36px 36px;
+  }
+
+  .personal-file__row {
+    padding: 5px 0;
+    gap: 6px;
+    font-size: 13px;
+  }
+
+  .personal-file__label {
+    font-size: 12px;
+  }
+
+  .final-stats__columns {
+    font-size: 10px;
   }
 }

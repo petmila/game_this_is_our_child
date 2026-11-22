@@ -1,34 +1,3 @@
-// const buttonImg = document.getElementById("startButton");
-// const boardTrack = document.getElementById("boardTrack");
-
-// const boardPattern = [
-//   "influence",
-//   "situation",
-//   "choice",
-//   "change_stat",
-//   "influence",
-//   "choice",
-//   "situation",
-//   "influence"
-// ];
-
-// buttonImg.addEventListener('click', function(){createBoard()});
-// function createBoard() {
-//   boardTrack.innerHTML = "";
-
-//   boardPattern.forEach((type, index) => {
-//     const cell = document.createElement("div");
-
-//     cell.classList.add("cell");
-//     cell.classList.add(`cell_${type}`);
-
-//     cell.dataset.type = type;
-//     cell.dataset.index = index;
-
-//     boardTrack.appendChild(cell);
-//   });
-// }
-
 import {
   loadGameData,
   resetCardDecks,
@@ -66,7 +35,8 @@ const contentArea =
 
 // const blocks = [
 //   "influence",
-//   "situation"
+//   "situation",
+//   "choice"
 // ];
 
 const blocks = [
@@ -133,6 +103,39 @@ let stats = {
 }
 
 let currentIndex = 0;
+let initialStats = {};
+
+/* =========================
+   AUDIO
+========================= */
+
+const bgMusic = new Audio("../audio/background.mp3");
+bgMusic.loop = true;
+bgMusic.volume = 0.1;
+const coinSound = new Audio("../audio/coin.mp3");
+coinSound.volume = 0.9;
+const victorySound = new Audio("../audio/victory.mp3");
+victorySound.volume = 0.7;
+
+let soundEnabled = true;
+let musicStarted = false;
+
+function startMusic() {
+  musicStarted = true;
+  if (!soundEnabled) return;
+  bgMusic.play().catch(error => {
+    console.warn("Не удалось запустить музыку:", error);
+  });
+}
+
+// Воспроизведение эффекта
+function playSound(sound) {
+  if (!soundEnabled) return;
+  sound.currentTime = 0;
+  sound.play().catch(error => {
+    console.warn("Не удалось воспроизвести звук:", error);
+  });
+}
 
 /* =========================
    SCREEN SWITCHING
@@ -200,7 +203,10 @@ function showStats() {
 }
 
 function pickStats() {
+  startMusic();
+
   stats = randomizeStats();
+  initialStats = { ...stats };
   showStats();
   showScreen("pickStatsScreen");
 }
@@ -500,7 +506,7 @@ function resolveChoice(card) {
   const commentBlock = document.getElementById("guardiansChoiceComment");
   coinButton.disabled = true;
   coinButton.classList.add("flipping");
-
+  playSound(coinSound);
   setTimeout(() => {
     const isSuccess = Math.random() < 0.5;
     const outcome = isSuccess ? card.success : card.failure;
@@ -729,12 +735,72 @@ window.addEventListener(
    RESULT
 ========================= */
 
+const endings = {
+  negativeSingle: {
+    "МС": "Вы так старались вырастить идеального человека, что забыли уточнить, как он себя при этом чувствует. Мы забираем ребенка в специализированный санаторий. Не волнуйтесь, там он сможет совмещать свою обычную жизнь с курсом седативных. Мы понимаем, что вы действовали из луших побуждений, но лучше вашему ребенку не видеть вас ближайшие полгода, как минимум.",
+    "ФЗ": "Терапевт едва не перекрестился, когда понял, что у вашего ребенка цинга. В двадцать первом веке! Мы однозначно забираем его в лучшее место, пока вы не решились пройти по всем средневековым болезням и не заразили его чумой. И нет, к ребенку вас не пустят!",
+    "ОР": "Поздравляем, вы создали идеального человека, который вас искренне ненавидит. Вы вложили в него все ресурсы: деньги, время и силы, но забыли главное — тепло. Мы не будем вас осуждать, мы просто вычеркнем вас из его свидетельства о рождении",
+    "И": "Мы вынуждены признать: ваш ребенок — это невероятно счастливый и воспитанный человек с нулевыми шансами на выживание в реальном мире. Мы вручаем ему медаль за доброту и отправляем в специнтернат, где его попытаются адаптировать к нормальной жизни. Вам с ним нельзя! По крайней мере, вы всегда можете успокоить себя тем, что он точно никогда не станет злым гением",
+    "В": "Ребенок вроде здоров и умен, но прямо сейчас пытается продать соседского кота на маркетплейсе. К сожалению, мы вынуждены изолировать его от общества и поместить в исправительное учреждение на какое-то время."
+  },
+  negativeMultiple: "Ребенок сбежал из дома, а вы спохватились спустя целых два дня?! Давать вам шанс было нашей величайшей ошибкой! Мы немедленно обратимся в полицию и привлечем к поискам волонтеров! Но будьте уверены, в случае его обнаружения ВЫ этого ребенка больше никогда не увидите!",
+  positive: "Признавать свои ошибки нелегко, но в данном случае мы счастливы, что ошибались на ваш счет. Из вас получился если не эталонный, то однозначно хорошо справляющийся со своими обязанностями родитель. Мы снимаем вашу семью с учета и перестаем вести за ней контроль. Удачи в будущем! Перед вами все еще стоит задача не стать в ближайшее время счастливыми бабушкой и дедушкой."
+}
+
+function getEnding() {
+  // Собираем названия всех отрицательных статов
+  const negativeStats = Object.keys(stats)
+    .filter(stat => stats[stat] <= 0);
+  // Если отрицательных два или больше
+  if (negativeStats.length >= 2) {
+    return endings.negativeMultiple;
+  }
+  // Если отрицательная только одна характеристика
+  if (negativeStats.length === 1) {
+    const statName = negativeStats[0];
+    return endings.negativeSingle[statName];
+  }
+  // Если отрицательных характеристик нет
+  return endings.positive;
+}
+
+function renderEnding() {
+  const endingText = document.getElementById("endingText");
+  const ending = getEnding();
+  endingText.innerHTML = "";
+  const paragraphs = ending.trim().split(/\n\s*\n/);
+  paragraphs.forEach(text => {
+    const paragraph = document.createElement("p");
+    paragraph.textContent = text.trim();
+    endingText.appendChild(paragraph);
+  });
+}
+
 function showResult() {
   document.getElementById("statIntelligenceFinal").textContent = stats["И"];
   document.getElementById("statPhysicalFinal").textContent = stats["ФЗ"];
   document.getElementById("statMentalFinal").textContent = stats["МС"];
   document.getElementById("statRelationshipFinal").textContent = stats["ОР"];
   document.getElementById("statBehaviorFinal").textContent = stats["В"];
+
+  document.getElementById("statIntelligenceInitial").textContent = initialStats["И"];
+  document.getElementById("statPhysicalInitial").textContent = initialStats["ФЗ"];
+  document.getElementById("statMentalInitial").textContent = initialStats["МС"];
+  document.getElementById("statRelationshipInitial").textContent = initialStats["ОР"];
+  document.getElementById("statBehaviorInitial").textContent = initialStats["В"];
+
+  renderEnding();
+
+  document.querySelectorAll(".final-stats .personal-file__row span:last-child")
+  .forEach(element => {
+    const value = Number(element.textContent);
+    element.classList.toggle("negative-stat", value <= 0);
+  });
+
+  const isGoodEnding = Object.values(stats).every(value => value > 0);
+  if (isGoodEnding) {
+    playSound(victorySound);
+  }
   showScreen("resultScreen");
 
 }

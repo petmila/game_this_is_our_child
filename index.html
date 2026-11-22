@@ -25,7 +25,7 @@
                 В игре «Это мой ребенок» встречаются сцены насилия, курения, распития алкоголя, намеки на интимные отношения и драки с бомжами. Наслаждайтесь! 
               </p>
               <p>
-                Вы — родитель ребенка в пубертате. Ваша задача сохранить все характеристики ребенка в положительном значении. Если вы не справитесь с родительским долгом, то вырастите неблагополучное чадо. 
+                Вы — родитель ребенка в пубертате. Ваша задача — сохранить все характеристики ребенка в положительном значении. Если вы не справитесь с родительским долгом, то вырастите неблагополучное чадо. 
               </p>
               <p>
                 Настоятельно рекомендуем следить за вашим ребенком и его показателями самостоятельно. Вы же не думаете, что ребенок будет экологично коммуницировать словами через рот?
@@ -48,14 +48,39 @@
         <img class="game-title-image" src="./images/title.PNG" alt="Это мой ребёнок">
         <div class="pick-stats-screen__main">
           <div class="stats-block">
-            <h2>Давайте познакомимся с пока еще вашим ребенком</h2>
-            <div class="stats-box">
+            <!-- <h2>Личное дело вашего ребенка</h2> -->
+              <div class="stats-box">
+              <div class="personal-file__header">
+                <span class="personal-file__label">ЛИЧНОЕ ДЕЛО № 001</span>
+                <span class="personal-file__stage">До пубертата (начальные характеристики)</span>
+              </div>
+              <div class="personal-file__stats">
+                <p class="personal-file__row">
+                  <span>Интеллект</span><span id="statIntelligence"></span>
+                </p>
+                <p class="personal-file__row">
+                  <span>Физическое здоровье</span><span id="statPhysical"></span>
+                </p>
+                <p class="personal-file__row">
+                  <span>Ментальное состояние</span><span id="statMental"></span>
+                </p>
+                <p class="personal-file__row">
+                  <span>Отношения с родителем</span><span id="statRelationship"></span>
+                </p>
+                <p class="personal-file__row">
+                  <span>Воспитанность</span><span id="statBehavior"></span>
+                </p>
+              </div>
+              <p class="personal-file__note">Документ составлен Органами Опеки.</p>
+
+            </div>
+            <!-- <div class="stats-box">
               <p>Интеллект: <span id="statIntelligence"></span></p>
               <p>Физическое здоровье: <span id="statPhysical"></span></p>
               <p>Ментальное состояние: <span id="statMental"></span></p>
               <p>Отношения с родителем: <span id="statRelationship"></span></p>
               <p>Воспитанность: <span id="statBehavior"></span></p>
-            </div>
+            </div> -->
           </div>
 
           <div class="pick-stats-screen__actions">
@@ -96,14 +121,54 @@
       <div class="result-screen__content">
         <img src="./images/game_over.PNG" alt="Игра окончена">
         <div id="resultContent">
-          <div class="stats-box">
+          <!-- <div class="stats-box">
               <p>Интеллект: <span id="statIntelligenceFinal"></span></p>
               <p>Физическое здоровье: <span id="statPhysicalFinal"></span></p>
               <p>Ментальное состояние: <span id="statMentalFinal"></span></p>
               <p>Отношения с родителем: <span id="statRelationshipFinal"></span></p>
               <p>Воспитанность: <span id="statBehaviorFinal"></span></p>
-              <p>Спасибо за эту игру! Даже если не все получилось, вы переживали за своего ребенка, а это главное качество хорошего родителя.</p>
-          </div>
+              
+          </div> -->
+
+          <!-- <p>Спасибо за эту игру! Даже если не все получилось, вы переживали за своего ребенка, а это главное качество хорошего родителя.</p> -->
+          <div class="stats-box final-stats">
+            <div class="personal-file__header">
+              <span class="personal-file__label">ЛИЧНОЕ ДЕЛО № 001</span>
+              <span class="personal-file__stage">После пубертата</span>
+            </div>
+            <div class="final-stats__columns">
+              <span>Характеристика</span>
+              <span>Было</span>
+              <span>Стало</span>
+            </div>
+            <div class="personal-file__stats">
+              <p class="personal-file__row">
+                <span>Интеллект</span><span id="statIntelligenceInitial"></span><span id="statIntelligenceFinal"></span>
+              </p>
+              <p class="personal-file__row">
+                <span>Физическое здоровье</span><span id="statPhysicalInitial"></span><span id="statPhysicalFinal"></span>
+              </p>
+              <p class="personal-file__row">
+                <span>Ментальное состояние</span><span id="statMentalInitial"></span><span id="statMentalFinal"></span>
+              </p>
+              <p class="personal-file__row">
+                <span>Отношения с родителем</span><span id="statRelationshipInitial"></span><span id="statRelationshipFinal"></span>
+              </p>
+              <p class="personal-file__row">
+                <span>Воспитанность</span><span id="statBehaviorInitial"></span><span id="statBehaviorFinal"></span>
+              </p>
+            </div>
+            <p class="personal-file__note">Дело закрыто. Последствия воспитания зафиксированы.</p>
+        </div>
+        <div class="stats-box ending-box">
+              <h3>Вердикт органов опеки:</h3>
+              <div id="endingText">
+                <p>
+                  Спасибо за эту игру! Даже если не всё
+                  получилось, вы переживали за своего ребёнка,
+                  а это главное качество хорошего родителя.
+                </p>
+              </div>
           </div>
       </div>
     </section>
