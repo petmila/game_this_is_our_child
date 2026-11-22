@@ -99,12 +99,12 @@ let initialStats = {};
    AUDIO
 ========================= */
 
-const bgMusic = new Audio("../audio/background.mp3");
+const bgMusic = new Audio(new URL("../audio/background.mp3", import.meta.url).href);
 bgMusic.loop = true;
 bgMusic.volume = 0.1;
-const coinSound = new Audio("../audio/coin.mp3");
+const coinSound = new Audio(new URL("../audio/coin.mp3", import.meta.url).href);
 coinSound.volume = 0.9;
-const victorySound = new Audio("../audio/victory.mp3");
+const victorySound = new Audio(new URL("../audio/victory.mp3", import.meta.url).href);
 victorySound.volume = 0.7;
 
 let soundEnabled = true;
